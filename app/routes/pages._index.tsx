@@ -42,7 +42,7 @@ export default function PagesLayout() {
       <ul>
         {edges.map((page, index: number) => (
           <li key={page.node.id}>
-            <a href={new URL(page.node.onlineStoreUrl).pathname}>
+            <a href={new URL(page.node.onlineStoreUrl as string).pathname}>
               {page.node.title}
             </a>
           </li>

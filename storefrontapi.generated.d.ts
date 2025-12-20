@@ -666,6 +666,19 @@ export type PageQuery = {
   >;
 };
 
+export type PagesQueryVariables = StorefrontAPI.Exact<{
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+}>;
+
+export type PagesQuery = {
+  pages: {
+    edges: Array<{
+      node: Pick<StorefrontAPI.Page, 'id' | 'onlineStoreUrl' | 'title'>;
+    }>;
+  };
+};
+
 export type PolicyFragment = Pick<
   StorefrontAPI.ShopPolicy,
   'body' | 'handle' | 'id' | 'title' | 'url'
@@ -1233,6 +1246,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  query Page(\n    $language: LanguageCode,\n    $country: CountryCode,\n    $handle: String!\n  )\n  @inContext(language: $language, country: $country) {\n    page(handle: $handle) {\n      handle\n      id\n      title\n      body\n      seo {\n        description\n        title\n      }\n    }\n  }\n': {
     return: PageQuery;
     variables: PageQueryVariables;
+  };
+  '#graphql\n  query Pages(\n    $language: LanguageCode\n    $country: CountryCode\n  )\n  @inContext(language: $language, country: $country) {\n    pages(first: 10) {\n      edges {\n        node {\n          id\n          onlineStoreUrl\n          title\n        }       \n      }\n    }\n  }  \n': {
+    return: PagesQuery;
+    variables: PagesQueryVariables;
   };
   '#graphql\n  query Page(\n    $language: LanguageCode\n    $country: CountryCode\n    $handle: String!\n  )\n  @inContext(language: $language, country: $country) {\n    page(handle: $handle) {\n      handle\n      id\n      title\n      body\n      seo {\n        description\n        title\n      }\n    } \n  }\n': {
     return: PageQuery;

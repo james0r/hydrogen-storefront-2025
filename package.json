@@ -14,6 +14,7 @@
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
+    "@netlify/vite-plugin-react-router": "^2.1.2",
     "@shopify/hydrogen": "2025.7.0",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
@@ -29,6 +30,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
     "@graphql-codegen/cli": "5.0.2",
+    "@netlify/vite-plugin": "^2.7.18",
     "@react-router/dev": "7.9.2",
     "@react-router/fs-routes": "7.9.2",
     "@shopify/cli": "3.85.4",
