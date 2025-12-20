@@ -7,6 +7,7 @@ import type {
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {ProductItem} from '~/components/ProductItem';
+import SomeExampleComponent from '~/components/SomeExampleComponent';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -61,6 +62,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />
+      <SomeExampleComponent number={42} />
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );

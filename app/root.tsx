@@ -73,6 +73,8 @@ export async function loader(args: Route.LoaderArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
+  const {header} = criticalData
+  // deferredData.footer.then((heade) =>
   const {storefront, env} = args.context;
 
   return {

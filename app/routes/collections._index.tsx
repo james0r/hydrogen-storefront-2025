@@ -23,6 +23,8 @@ async function loadCriticalData({context, request}: Route.LoaderArgs) {
     pageBy: 4,
   });
 
+  console.error(paginationVariables)
+
   const [{collections}] = await Promise.all([
     context.storefront.query(COLLECTIONS_QUERY, {
       variables: paginationVariables,
