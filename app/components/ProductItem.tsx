@@ -19,6 +19,7 @@ export function ProductItem({
 }) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
+
   return (
     <Link
       className="product-item"

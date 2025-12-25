@@ -15,14 +15,14 @@ body {
   padding: 0;
 }
 
-h1,
+/* h1
 h2,
 p {
   margin: 0;
   padding: 0;
-}
+} */
 
-h1 {
+/* h1 {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.4;
@@ -60,7 +60,7 @@ a {
 a:hover {
   text-decoration: underline;
   cursor: pointer;
-}
+} */
 
 hr {
   border-bottom: none;
@@ -82,12 +82,12 @@ body > main {
   margin: 0 1rem 1rem 1rem;
 }
 
-section {
+/* section {
   padding: 1rem 0;
   @media (min-width: 768px) {
     padding: 2rem 0;
   }
-}
+} */
 
 fieldset {
   display: flex;

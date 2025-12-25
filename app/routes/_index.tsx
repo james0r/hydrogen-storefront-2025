@@ -4,6 +4,7 @@ import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import type {
   FeaturedCollectionFragment,
+  ProdRecsQuery,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {ProductItem} from '~/components/ProductItem';
@@ -45,7 +46,11 @@ async function loadCriticalData({context}: Route.LoaderArgs) {
  */
 function loadDeferredData({context}: Route.LoaderArgs) {
   const recommendedProducts = context.storefront
-    .query(RECOMMENDED_PRODUCTS_QUERY)
+    .query(PRODUCT_RECOMMENDATIONS)
+    .then((data) => {
+      console.log('recommendedProducts resolved', data);
+      return data;
+    })
     .catch((error: Error) => {
       // Log query errors, but don't throw them so the page can still render
       console.error(error);
@@ -93,7 +98,7 @@ function FeaturedCollection({
 function RecommendedProducts({
   products,
 }: {
-  products: Promise<RecommendedProductsQuery | null>;
+  products: Promise<ProdRecsQuery | null>;
 }) {
   return (
     <div className="recommended-products">
@@ -102,8 +107,8 @@ function RecommendedProducts({
         <Await resolve={products}>
           {(response) => (
             <div className="recommended-products-grid">
-              {response
-                ? response.products.nodes.map((product) => (
+              {response?.productRecommendations
+                ? response.productRecommendations.map((product) => (
                     <ProductItem key={product.id} product={product} />
                   ))
                 : null}
@@ -138,6 +143,72 @@ const FEATURED_COLLECTION_QUERY = `#graphql
     }
   }
 ` as const;
+
+export const PRODUCT_RECOMMENDATIONS = `#graphql
+  query productRecommendations(
+    $productId: ID =  "gid://shopify/Product/8202852172073",
+    $variantsFirst: Int = 1
+    $imagesFirst: Int = 5
+  ) {
+    productRecommendations(productId: $productId) {
+      featuredImage {
+        id
+        url
+        altText
+        width
+        height
+      }
+      description
+      handle
+      id
+      images(first: $imagesFirst) {
+        edges {
+          node {
+            id
+            originalSrc
+            altText
+          }
+        }
+      }
+      priceRange {
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      productType
+      tags
+      title
+      variants(first: $variantsFirst) {
+        edges {
+          node {
+            sku
+            availableForSale
+            id
+            compareAtPriceV2 {
+              amount
+              currencyCode
+            }
+            priceV2 {
+              amount
+              currencyCode
+            }
+            title
+            image {
+              id
+              originalSrc
+              altText
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   fragment RecommendedProduct on Product {

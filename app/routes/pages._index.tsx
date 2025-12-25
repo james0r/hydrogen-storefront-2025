@@ -34,8 +34,6 @@ function loadDeferredData({ context }: Route.LoaderArgs) {
 export default function PagesLayout() {
   const { pages: { edges } } = useLoaderData<typeof loader>()
 
-
-
   return (
     <div>
       <h1>Pages index</h1>

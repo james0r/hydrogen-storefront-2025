@@ -12,6 +12,11 @@ img {
   border-radius: 4px;
 }
 
+body {
+  background-color: rgb(252, 252, 250);
+  color: #1f1f1f;
+}
+
 /*
 * --------------------------------------------------
 * Non anchor links

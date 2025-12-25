@@ -2,6 +2,29 @@ import {createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
 
+
+async function fetchCountryData() {
+  const response = await fetch('https://countries.trevorblades.com/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `#graphql
+        query {
+          country(code: "US") {
+            capital
+            emoji
+          }
+        }
+      `,
+    }),
+  });
+  
+  const data = await response.json();
+  return data;
+}
+
 // Define the additional context object
 const additionalContext = {
   // Additional context for custom properties, CMS clients, 3P SDKs, etc.
@@ -9,7 +32,10 @@ const additionalContext = {
   // Example of complex objects that could be added:
   // cms: await createCMSClient(env),
   // reviews: await createReviewsClient(env),
-} as const;
+  message: 'Hello from additional context!',
+
+  countryData: fetchCountryData()
+}
 
 // Automatically augment HydrogenAdditionalContext with the additional context type
 type AdditionalContextType = typeof additionalContext;
